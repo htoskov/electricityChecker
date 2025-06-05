@@ -195,11 +195,11 @@ def main():
 
                         if current_price is not None:
                             if current_price > int(credentials["userPrice"]):
-                                log(f"[ACTION] Price high. Turning ON Huawei.", tag="green")
-                                huaweiON()
+                                log(f"[ACTION] Price high. Turning ON Goodwe.", tag="green")
+                                GoodweON()
                             else:
-                                log(f"[ACTION] Price low. Turning OFF Huawei.", tag="red")
-                                huaweiOFF()
+                                log(f"[ACTION] Price low. Turning OFF Goodwe.", tag="red")
+                                GoodweOFF()
                         else:
                             log("[WARNING] No valid price for current hour.")
                     else:
@@ -215,10 +215,10 @@ def main():
     finally:
         driver.quit()
 
-def huaweiON():
+def GoodweON():
     global isOn
     if isOn == "ON":
-        log("[INFO] Huawei already ON. Skipping...")
+        log("[INFO] Goodwe already ON. Skipping...")
         return
 
     driver = get_driver()
@@ -263,10 +263,10 @@ def huaweiON():
     isOn = "ON"
     driver.quit()
 
-def huaweiOFF():
+def GoodweOFF():
     global isOn
     if isOn == "OFF":
-        log("[INFO] Huawei already OFF. Skipping...")
+        log("[INFO] Goodwe already OFF. Skipping...")
         return
 
     driver = get_driver()
