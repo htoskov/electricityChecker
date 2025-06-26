@@ -82,13 +82,17 @@ def log(text, tag="white"):
 
 log(R)
 
-# Load ChromeDriver and set options
 def get_driver():
-    # Automatically download and update chromedriver if necessary
-    chromedriver_autoinstaller.install()
+    chromedriver_autoinstaller.install()  
+    from selenium import webdriver
+    from selenium.webdriver.chrome.service import Service
+    import subprocess
+
+    version_info = subprocess.check_output(['chromedriver', '--version']).decode('utf-8')
+    log(f"[INFO] Installed ChromeDriver version: {version_info.strip()}")
 
     options = Options()
-#   options.add_argument("--headless")  # Optional: Run in background
+    options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
     return driver
 
