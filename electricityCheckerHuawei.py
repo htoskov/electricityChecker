@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,6 +15,7 @@ from threading import Thread
 import tkinter as tk
 from tkinter import scrolledtext
 import os
+import subprocess
 
 sofia_lat = 42.69
 sofia_lon = 23.32
@@ -38,11 +38,6 @@ sunset_minute = sunset_local.strftime("%M")
 script_dir = os.path.dirname(os.path.abspath(__file__))
 credentials_path = os.path.join(script_dir, 'credentials.json')
 
-# Find the path to the chromedriver.exe file
-# chrome_dir = os.path.dirname(os.path.abspath(__file__))
-# chrome_path = os.path.join(chrome_dir, 'chromedriver.exe')
-
-# This is a simple ASCII art logo for the program.
 R = r"""
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
@@ -83,16 +78,11 @@ def log(text, tag="white"):
 log(R)
 
 def get_driver():
-    chromedriver_autoinstaller.install()  
-    from selenium import webdriver
-    from selenium.webdriver.chrome.service import Service
-    import subprocess
-
+    chromedriver_autoinstaller.install()
     version_info = subprocess.check_output(['chromedriver', '--version']).decode('utf-8')
     log(f"[INFO] Installed ChromeDriver version: {version_info.strip()}")
-
     options = Options()
-    options.add_argument("--headless")
+#   options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
     return driver
 
@@ -179,7 +169,7 @@ def main():
 
         # Logic to check the current hour's price
         today = datetime.today().weekday()
-        if today == 5 or today == 6:
+        if True:
             if current_hour > int(sunset_hour) or current_hour < int(sunrise_hour):
                 log(f"[INFO] Current hour ({current_hour}) is after sunset ({sunset_hour}:{sunset_minute}) or before sunrise ({sunrise_hour}:{sunrise_minute}).")
             elif current_hour == int(sunset_hour) and current_minute >= int(sunset_minute):
@@ -198,10 +188,10 @@ def main():
                         if current_price is not None:
                             if current_price > int(credentials["userPrice"]):
                                 log(f"[ACTION] Price high. Turning ON Huawei.", tag="green")
-                                huaweiON()
+                                huaweiON(driver)
                             else:
                                 log(f"[ACTION] Price low. Turning OFF Huawei.", tag="red")
-                                huaweiOFF()
+                                huaweiOFF(driver)
                         else:
                             log("[WARNING] No valid price for current hour.")
                     else:
@@ -217,13 +207,12 @@ def main():
     finally:
         driver.quit()
 
-def huaweiON():
+def huaweiON(driver):
     global isOn
     if isOn == "ON":
         log("[INFO] Huawei already ON. Skipping...")
         return
 
-    driver = get_driver()
     if not safe_get(driver, "https://eu5.fusionsolar.huawei.com/"):
         driver.quit()
         return
@@ -265,13 +254,12 @@ def huaweiON():
     isOn = "ON"
     driver.quit()
 
-def huaweiOFF():
+def huaweiOFF(driver):
     global isOn
     if isOn == "OFF":
         log("[INFO] Huawei already OFF. Skipping...")
         return
 
-    driver = get_driver()
     if not safe_get(driver, "https://eu5.fusionsolar.huawei.com/"):
         driver.quit()
         return
