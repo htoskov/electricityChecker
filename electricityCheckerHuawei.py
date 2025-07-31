@@ -20,7 +20,7 @@ import subprocess
 sofia_lat = 42.69
 sofia_lon = 23.32
 sofia_tz = pytz.timezone("Europe/Sofia")
-utc_tz = pytz.utc  # Use pytz for UTC
+utc_tz = pytz.utc
 sun = Sun(sofia_lat, sofia_lon)
 today_utc = datetime.now(utc_tz)
 sunrise_utc = sun.get_sunrise_time(today_utc)
@@ -126,14 +126,27 @@ def safe_send_keys(driver, by, value, keys, retries=10, wait_time=10):
 
 # ---- Main Logic ----
 global isOn
+global counterUntilDelete
+
+counterUntilDelete = 1
 isOn = "First Run"
 
 def main():      
     current_hour = datetime.now().hour
     current_minute = datetime.now().minute
+    global counterUntilDelete
+    if counterUntilDelete == 20:
+        counterUntilDelete = 1
+        output_box.delete("1.0", tk.END)
+        log(f"[INFO] Deleting all logs to prevent crashes. (20/20)")
+        log(R)
+    else:
+        log(f"[INFO] Logs will be deleted after 20 total loops to prevent crashes [{counterUntilDelete}/20]")
+
     log(f"[INFO] Current hour: {current_hour}")
     driver = get_driver()
-    
+    counterUntilDelete += 1
+
     log("\n" + "="*70 + "\n[INFO] Checking prices...\n")
 
     try:
@@ -169,7 +182,7 @@ def main():
 
         # Logic to check the current hour's price
         today = datetime.today().weekday()
-        if True:
+        if today == 5 or today == 6:
             if current_hour > int(sunset_hour) or current_hour < int(sunrise_hour):
                 log(f"[INFO] Current hour ({current_hour}) is after sunset ({sunset_hour}:{sunset_minute}) or before sunrise ({sunrise_hour}:{sunrise_minute}).")
             elif current_hour == int(sunset_hour) and current_minute >= int(sunset_minute):
