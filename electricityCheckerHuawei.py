@@ -38,6 +38,24 @@ sunset_minute = sunset_local.strftime("%M")
 script_dir = os.path.dirname(os.path.abspath(__file__))
 credentials_path = os.path.join(script_dir, 'credentials.json')
 
+
+# --- Logging to file (streaming) ---
+LOG_FILE_PATH = os.path.join(script_dir, "solar_price_checker_logs.txt")
+
+# Open once, append mode, line-buffered (flushes on each newline)
+log_file = open(LOG_FILE_PATH, "a", encoding="utf-8", buffering=1)
+
+# Loop bookkeeping
+loop_counter = 0       # counts loops within the current "dump"
+dump_index = 1         # how many dumps we've completed/separated
+DUMP_SIZE = 48         # number of loops per dump
+
+
+# --- Prices file (streaming) ---
+PRICE_FILE_PATH = os.path.join(script_dir, "prices_electricity.txt")
+price_file = open(PRICE_FILE_PATH, "a", encoding="utf-8", buffering=1)  # line-buffered
+
+
 R = r"""
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
@@ -72,7 +90,25 @@ output_box.tag_config("red", foreground="red")
 output_box.tag_config("white", foreground="white")
 
 def log(text, tag="white"):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # GUI
     output_box.insert(tk.END, text + "\n", tag)
+    output_box.see(tk.END)
+    # File (real-time, line-buffered)
+    log_file.write(f"[{timestamp}] {text}\n")
+
+
+def write_dump_separator(kind="START"):
+    # kind can be "START" or "END" — here used only for GUI display
+    stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    sep = (
+        "\n"
+        "===============================================================================\n"
+        f"==  {kind} OF DUMP #{dump_index}  @ {stamp}\n"
+        "===============================================================================\n"
+    )
+    # GUI only
+    output_box.insert(tk.END, sep, "white")
     output_box.see(tk.END)
 
 log(R)
@@ -111,6 +147,13 @@ def safe_click(driver, by, value, retries=10, wait_time=10):
     log(f"[ERROR] Could not click {value} after {retries} attempts.", tag="red")
     return False
 
+
+def log_price(price, context="CURRENT"):
+    now_bg = datetime.now(sofia_tz)
+    date_hour = now_bg.strftime("%d/%m/%Y %H:00")
+    price_txt = "N/A" if price is None else f"{price:.2f} лв."
+    price_file.write(f"[{date_hour}] Electricity price: {price_txt}\n")
+
 # Function to send keys with retries
 def safe_send_keys(driver, by, value, keys, retries=10, wait_time=10):
     for attempt in range(1, retries + 1):
@@ -126,39 +169,50 @@ def safe_send_keys(driver, by, value, keys, retries=10, wait_time=10):
 
 # ---- Main Logic ----
 global isOn
-global counterUntilDelete
 
-counterUntilDelete = 1
 isOn = "First Run"
 
 def main():      
     current_hour = datetime.now().hour
     current_minute = datetime.now().minute
-    global counterUntilDelete
-    if counterUntilDelete == 20:
-        counterUntilDelete = 1
+    global loop_counter, dump_index
+    loop_counter += 1
+
+    if loop_counter == 1:
+        # Starting a new dump window
+        write_dump_separator("START")
+
+    log(f"[INFO] Loop [{loop_counter}/{DUMP_SIZE}] in current dump window.")
+
+    if loop_counter >= DUMP_SIZE:
+        # Close out this dump window
+        write_dump_separator("END")
+        dump_index += 1
+        loop_counter = 0  # will become 1 at the top of next main() call
+
+        # "Begin again": clear GUI to keep it light, reprint banner
         output_box.delete("1.0", tk.END)
-        log(f"[INFO] Deleting all logs to prevent crashes. (20/20)")
+        log(f"[INFO] Cleared GUI log area to keep memory low. Beginning dump #{dump_index}...")
         log(R)
-    else:
-        log(f"[INFO] Logs will be deleted after 20 total loops to prevent crashes [{counterUntilDelete}/20]")
+
 
     log(f"[INFO] Current hour: {current_hour}")
     driver = get_driver()
-    counterUntilDelete += 1
 
     log("\n" + "="*70 + "\n[INFO] Checking prices...\n")
 
     try:
         if not safe_get(driver, URL):
+            log_price(None, context="LOAD-FAIL")  # ensure a line for this hour
             driver.quit()
             return
-        
+     
         # Find the table with electricity prices
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         table = soup.find('table', {'id': 'wpdtSimpleTable-33'})
         if not table:
             log("[ERROR] Table not found. Retrying next cycle...")
+            log_price(None, context="TABLE-NOT-FOUND")  # still write the hourly line
             driver.quit()
             return
         else:
@@ -169,20 +223,38 @@ def main():
 
         for i in range(0, len(rows), 2):
             try:
-                if (current_hour == 0) or (current_hour <= 23 and current_hour >= 14):
-                    last_col = rows[i].find_all('td')[-2].text.strip() # IBEX Second last column
+                if (current_hour == 0) or (14 <= current_hour <= 23):
+                    last_col = rows[i].find_all('td')[-2].text.strip()  # IBEX second-last column
                     price = float(last_col.replace(',', '').replace('лв.', ''))
                     selected_prices.append(price)
-                elif current_hour <= 13 and current_hour >= 1:
-                    last_col = rows[i].find_all('td')[-1].text.strip() # IBEX Last column
+                elif 1 <= current_hour <= 13:
+                    last_col = rows[i].find_all('td')[-1].text.strip()  # IBEX last column
                     price = float(last_col.replace(',', '').replace('лв.', ''))
                     selected_prices.append(price)
+                else:
+                    selected_prices.append(None)
             except (IndexError, ValueError):
                 selected_prices.append(None)
 
-        # Logic to check the current hour's price
+        # --- IMMEDIATE current-hour price determination (before weekend/weekday checks) ---
+        if selected_prices:
+            if current_hour == 0:
+                # 00:00 -> last element
+                current_price = selected_prices[-1]
+            elif current_hour - 1 < len(selected_prices):
+                current_price = selected_prices[current_hour - 1]
+
+        # Stream to prices file right away
+        log_price(current_price, context="IMMEDIATE")
+
+        # Also show in GUI for visibility
+        if current_price is not None:
+            log(f"[INFO] Current hour ({current_hour}) price: {current_price} лв.")
+        else:
+            log("[WARNING] Current hour price unavailable.")
+
         today = datetime.today().weekday()
-        if today == 5 or today == 6:
+        if today in (5, 6):  # weekend
             if current_hour > int(sunset_hour) or current_hour < int(sunrise_hour):
                 log(f"[INFO] Current hour ({current_hour}) is after sunset ({sunset_hour}:{sunset_minute}) or before sunrise ({sunrise_hour}:{sunrise_minute}).")
             elif current_hour == int(sunset_hour) and current_minute >= int(sunset_minute):
@@ -190,36 +262,23 @@ def main():
             elif current_hour == int(sunrise_hour) and current_minute < int(sunrise_minute):
                 log(f"[INFO] Current time is before sunrise ({sunrise_hour}:{sunrise_minute}).")
             else:
-                    if current_hour <= len(selected_prices):
-                        if current_hour == 0:
-                            current_price = selected_prices[len(selected_prices)-1]
-                            log(current_price)
-                        else:
-                            current_price = selected_prices[current_hour - 1] # +1 because the selected_prices list is in CET timezone which is 1 hour behind.
-                        log(f"[INFO] Current hour ({current_hour}) price: {current_price} лв. (Bulgarian Time)")
-
-                        if current_price is not None:
-                            if current_price > int(credentials["userPrice"]):
-                                log(f"[ACTION] Price high. Turning ON Huawei.", tag="green")
-                                huaweiON(driver)
-                            else:
-                                log(f"[ACTION] Price low. Turning OFF Huawei.", tag="red")
-                                huaweiOFF(driver)
-                        else:
-                            log("[WARNING] No valid price for current hour.")
+                if current_price is not None:
+                    log(f"[INFO] Current hour ({current_hour}) price: {current_price} лв. (Bulgarian Time)")
+                    if current_price > int(credentials["userPrice"]):
+                        log(f"[ACTION] Price high. Turning ON Huawei.", tag="green")
+                        huaweiON(driver)
                     else:
-                        print(len(selected_prices))
-                        log("[WARNING] Not enough hourly data.")
+                        log(f"[ACTION] Price low. Turning OFF Huawei.", tag="red")
+                        huaweiOFF(driver)
+                else:
+                    log("[WARNING] No valid price for current hour.")
         else:
-            # Check if today is monday and check if current hour is sunrise hour to start the systems
-            # Incase systems were turned off during the weekend they will start on monday sunrise
+            # Weekday: Monday sunrise auto-start
             if (today == 0 and current_hour == (int(sunrise_hour) + 1)):
                 log(f"[INFO] Today is Monday. Starting the systems for the weekdays.")
                 huaweiON(driver)
             else:
-                log(f"Test")
-            log(f"[INFO] Today is a weekday. Skipping price check.")
-        log(f"\n[INFO] Next check scheduled...")
+                log(f"[INFO] Today is a weekday. Skipping price check.")
 
     except Exception as e:
         log(f"[ERROR] Unexpected error: {e}", tag="red")
