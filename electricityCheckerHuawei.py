@@ -211,6 +211,13 @@ def main():
                         print(len(selected_prices))
                         log("[WARNING] Not enough hourly data.")
         else:
+            # Check if today is monday and check if current hour is sunrise hour to start the systems
+            # Incase systems were turned off during the weekend they will start on monday sunrise
+            if (today == 0 and current_hour == (int(sunrise_hour) + 1)):
+                log(f"[INFO] Today is Monday. Starting the systems for the weekdays.")
+                huaweiON(driver)
+            else:
+                log(f"Test")
             log(f"[INFO] Today is a weekday. Skipping price check.")
         log(f"\n[INFO] Next check scheduled...")
 
