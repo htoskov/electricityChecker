@@ -254,7 +254,7 @@ def main():
             log("[WARNING] Current hour price unavailable.")
 
         today = datetime.today().weekday()
-        if today in (5, 6):  # weekend
+        if today in (5, 6): # weekend
             if current_hour > int(sunset_hour) or current_hour < int(sunrise_hour):
                 log(f"[INFO] Current hour ({current_hour}) is after sunset ({sunset_hour}:{sunset_minute}) or before sunrise ({sunrise_hour}:{sunrise_minute}).")
             elif current_hour == int(sunset_hour) and current_minute >= int(sunset_minute):
@@ -272,6 +272,7 @@ def main():
                         huaweiOFF(driver)
                 else:
                     log("[WARNING] No valid price for current hour.")
+                    driver.quit()
         else:
             # Weekday: Monday sunrise auto-start
             if (today == 0 and current_hour == (int(sunrise_hour) + 1)):
@@ -279,9 +280,17 @@ def main():
                 huaweiON(driver)
             else:
                 log(f"[INFO] Today is a weekday. Skipping price check.")
+                driver.quit()
 
     except Exception as e:
         log(f"[ERROR] Unexpected error: {e}", tag="red")
+        driver.quit()
+    finally:
+        if driver is not None:
+            try:
+                driver.quit()
+            except Exception:
+                pass
 
 def huaweiON(driver):
     global isOn
