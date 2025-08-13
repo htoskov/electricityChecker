@@ -177,6 +177,7 @@ def main():
     current_minute = datetime.now().minute
     global loop_counter, dump_index
     loop_counter += 1
+    current_price = None
 
     if loop_counter == 1:
         # Starting a new dump window
@@ -204,7 +205,6 @@ def main():
     try:
         if not safe_get(driver, URL):
             log_price(None, context="LOAD-FAIL")  # ensure a line for this hour
-            driver.quit()
             return
      
         # Find the table with electricity prices
@@ -213,7 +213,6 @@ def main():
         if not table:
             log("[ERROR] Table not found. Retrying next cycle...")
             log_price(None, context="TABLE-NOT-FOUND")  # still write the hourly line
-            driver.quit()
             return
         else:
             log("[SUCCESS] IBEX Price Table located.")
@@ -267,24 +266,30 @@ def main():
                     if current_price > int(credentials["userPrice"]):
                         log(f"[ACTION] Price high. Turning ON Huawei.", tag="green")
                         huaweiON(driver)
+                        driver = None
                     else:
                         log(f"[ACTION] Price low. Turning OFF Huawei.", tag="red")
                         huaweiOFF(driver)
+                        driver = None
                 else:
                     log("[WARNING] No valid price for current hour.")
-                    driver.quit()
         else:
             # Weekday: Monday sunrise auto-start
             if (today == 0 and current_hour == (int(sunrise_hour) + 1)):
                 log(f"[INFO] Today is Monday. Starting the systems for the weekdays.")
                 huaweiON(driver)
+                driver = None
             else:
                 log(f"[INFO] Today is a weekday. Skipping price check.")
-                driver.quit()
 
     except Exception as e:
         log(f"[ERROR] Unexpected error: {e}", tag="red")
-        driver.quit()
+        if driver is not None:
+            try:
+                driver.quit()
+            except Exception:
+                pass
+        driver = None
     finally:
         if driver is not None:
             try:
@@ -293,101 +298,113 @@ def main():
                 pass
 
 def huaweiON(driver):
-    global isOn
-    if isOn == "ON":
-        log("[INFO] Huawei already ON. Skipping...")
-        return
+    try:
+        global isOn
+        if isOn == "ON":
+            log("[INFO] Huawei already ON. Skipping...")
+            return
 
-    if not safe_get(driver, "https://eu5.fusionsolar.huawei.com/"):
-        driver.quit()
-        return
+        if not safe_get(driver, "https://eu5.fusionsolar.huawei.com/"):
+            return
 
-    safe_send_keys(driver, By.ID, "username", credentials["username"])
-    time_module.sleep(1)
-    safe_send_keys(driver, By.ID, "value", credentials["password"])
-    time_module.sleep(1)
-    safe_click(driver, By.CLASS_NAME, "loginBtn")
-    time_module.sleep(5)
+        safe_send_keys(driver, By.ID, "username", credentials["username"])
+        time_module.sleep(1)
+        safe_send_keys(driver, By.ID, "value", credentials["password"])
+        time_module.sleep(1)
+        safe_click(driver, By.CLASS_NAME, "loginBtn")
+        time_module.sleep(5)
 
-    # Proizvodstveni Sgradi
-    if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details"):
-        safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-        time_module.sleep(5)
-        safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", credentials["1"])
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-        time_module.sleep(10)
-        safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-        time_module.sleep(3)
-        log(f"[INFO] Proizvodstveni Sgradi set to {credentials['1']}kW")
+        # Proizvodstveni Sgradi
+        if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details"):
+            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
+            time_module.sleep(5)
+            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", credentials["1"])
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
+            time_module.sleep(10)
+            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
+            time_module.sleep(3)
+            log(f"[INFO] Proizvodstveni Sgradi set to {credentials['1']}kW")
 
-    # Novi Skladove
-    if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details"):
-        safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-        time_module.sleep(5)
-        safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", credentials["2"])
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-        time_module.sleep(10)
-        safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-        time_module.sleep(3)
-        log(f"[INFO] Novi Skladove set to {credentials['2']}kW")
-        log(f"[SUCCESS] Automation successful! System is ON", tag="green")
-    isOn = "ON"
-    driver.quit()
+        # Novi Skladove
+        if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details"):
+            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
+            time_module.sleep(5)
+            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", credentials["2"])
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
+            time_module.sleep(10)
+            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
+            time_module.sleep(3)
+            log(f"[INFO] Novi Skladove set to {credentials['2']}kW")
+            log(f"[SUCCESS] Automation successful! System is ON", tag="green")
+        isOn = "ON"
+    except Exception as e:
+        log(f"[ERROR] huaweiON failed: {e}", tag="red")
+    finally:
+        try:
+            driver.quit()
+        except Exception:
+            pass
 
 def huaweiOFF(driver):
-    global isOn
-    if isOn == "OFF":
-        log("[INFO] Huawei already OFF. Skipping...")
-        return
+    try:
+        global isOn
+        if isOn == "OFF":
+            log("[INFO] Huawei already OFF. Skipping...")
+            return
 
-    if not safe_get(driver, "https://eu5.fusionsolar.huawei.com/"):
-        driver.quit()
-        return
+        if not safe_get(driver, "https://eu5.fusionsolar.huawei.com/"):
+            return
 
-    safe_send_keys(driver, By.ID, "username", credentials["username"])
-    time_module.sleep(1)
-    safe_send_keys(driver, By.ID, "value", credentials["password"])
-    time_module.sleep(1)
-    safe_click(driver, By.CLASS_NAME, "loginBtn")
-    time_module.sleep(10)
-
-    # Proizvodstveni Sgradi
-    if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details"):
-        safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-        time_module.sleep(5)
-        safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", "0")
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
+        safe_send_keys(driver, By.ID, "username", credentials["username"])
+        time_module.sleep(1)
+        safe_send_keys(driver, By.ID, "value", credentials["password"])
+        time_module.sleep(1)
+        safe_click(driver, By.CLASS_NAME, "loginBtn")
         time_module.sleep(10)
-        safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-        time_module.sleep(3)
-        log("[INFO] Proizvodstveni Sgradi set to 0kW")
 
-    # Novi Skladove
-    if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details"):
-        safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-        time_module.sleep(5)
-        safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", "0")
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-        time_module.sleep(5)
-        safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-        time_module.sleep(10)
-        safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-        time_module.sleep(3)
-        log("[INFO] Novi Skladove set to 0kW")
-        log(f"[SUCCESS] Automation successful! System is OFF", tag="green")
+        # Proizvodstveni Sgradi
+        if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details"):
+            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
+            time_module.sleep(5)
+            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", "0")
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
+            time_module.sleep(10)
+            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
+            time_module.sleep(3)
+            log("[INFO] Proizvodstveni Sgradi set to 0kW")
 
-    isOn = "OFF"
-    driver.quit()
+        # Novi Skladove
+        if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details"):
+            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
+            time_module.sleep(5)
+            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", "0")
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
+            time_module.sleep(5)
+            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
+            time_module.sleep(10)
+            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
+            time_module.sleep(3)
+            log("[INFO] Novi Skladove set to 0kW")
+            log(f"[SUCCESS] Automation successful! System is OFF", tag="green")
+
+        isOn = "OFF"
+    except Exception as e:
+        log(f"[ERROR] huaweiOFF failed: {e}", tag="red")
+    finally:
+        try:
+            driver.quit()
+        except Exception:
+            pass
 
 # Function to wait until the next hour
 def wait_until_next_hour():
