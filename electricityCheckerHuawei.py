@@ -283,9 +283,6 @@ def main():
     except Exception as e:
         log(f"[ERROR] Unexpected error: {e}", tag="red")
 
-    finally:
-        driver.quit()
-
 def huaweiON(driver):
     global isOn
     if isOn == "ON":
@@ -330,6 +327,7 @@ def huaweiON(driver):
         safe_click(driver, By.XPATH, "//span[text()='OK']/..")
         time_module.sleep(3)
         log(f"[INFO] Novi Skladove set to {credentials['2']}kW")
+        log(f"[SUCCESS] Automation successful! System is ON", tag="green")
     isOn = "ON"
     driver.quit()
 
@@ -377,6 +375,7 @@ def huaweiOFF(driver):
         safe_click(driver, By.XPATH, "//span[text()='OK']/..")
         time_module.sleep(3)
         log("[INFO] Novi Skladove set to 0kW")
+        log(f"[SUCCESS] Automation successful! System is OFF", tag="green")
 
     isOn = "OFF"
     driver.quit()
