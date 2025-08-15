@@ -416,7 +416,7 @@ def wait_until_next_hour():
         sunrise_time = datetime.combine(datetime.today(), time(int(sunrise_hour), int(sunrise_minute)))
         reference_time = datetime.combine(datetime.today(), time(int(sunrise_hour), 0))
         sleep_seconds = (sunrise_time - reference_time).total_seconds()
-    time_module.sleep(sleep_seconds)
+    time_module.sleep(sleep_seconds + 20)
 
 # Function to run the main function every hour
 def hourly_loop():
