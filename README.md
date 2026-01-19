@@ -84,19 +84,24 @@ The application includes a Tkinter-based dashboard that:
 - Windows 10 or 11  
 - Python 3.10+  
 - Google Chrome installed  
+- ChromeDriver (handled automatically by `chromedriver-autoinstaller`)
+
+---
+
+### credentials.json structure
+
+```json
+{
+  "IBEX_URL": "https://example.com/price-table",
+  "username": "your_fusionsolar_email",
+  "password": "your_password",
+  "userPrice": "150",
+  "1": "5",
+  "2": "6"
+}
+```
 
 ### Python Dependencies
 Install with:
 ```bash
 pip install selenium chromedriver-autoinstaller beautifulsoup4 suntime pytz
-
-**credentials.json structure**
-{
-  "IBEX_URL": "https://example.com/price-table",
-  "username": "your_fusionsolar_email",
-  "password": "your_password",
-  "userPrice": "150", // Allowed price
-  "1": "5", // KW Value for BUILDING 1
-  "2": "6" // KW Value for BUILDING 2
-}
-
