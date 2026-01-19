@@ -314,7 +314,7 @@ def huaweiON(driver):
         safe_click(driver, By.CLASS_NAME, "loginBtn")
         time_module.sleep(5)
 
-        # Proizvodstveni Sgradi
+
         if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details"):
             safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
             time_module.sleep(5)
@@ -326,9 +326,8 @@ def huaweiON(driver):
             time_module.sleep(10)
             safe_click(driver, By.XPATH, "//span[text()='OK']/..")
             time_module.sleep(3)
-            log(f"[INFO] Proizvodstveni Sgradi set to {credentials['1']}kW")
+            log(f"[INFO] BUILDING 1 set to {credentials['1']}kW")
 
-        # Novi Skladove
         if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details"):
             safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
             time_module.sleep(5)
@@ -340,7 +339,7 @@ def huaweiON(driver):
             time_module.sleep(10)
             safe_click(driver, By.XPATH, "//span[text()='OK']/..")
             time_module.sleep(3)
-            log(f"[INFO] Novi Skladove set to {credentials['2']}kW")
+            log(f"[INFO] BUILDING 2 set to {credentials['2']}kW")
             log(f"[SUCCESS] Automation successful! System is ON", tag="green")
         isOn = "ON"
     except Exception as e:
@@ -368,7 +367,7 @@ def huaweiOFF(driver):
         safe_click(driver, By.CLASS_NAME, "loginBtn")
         time_module.sleep(10)
 
-        # Proizvodstveni Sgradi
+
         if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details"):
             safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
             time_module.sleep(5)
@@ -380,9 +379,9 @@ def huaweiOFF(driver):
             time_module.sleep(10)
             safe_click(driver, By.XPATH, "//span[text()='OK']/..")
             time_module.sleep(3)
-            log("[INFO] Proizvodstveni Sgradi set to 0kW")
+            log("[INFO] BUILDING 1 set to 0kW")
 
-        # Novi Skladove
+
         if safe_get(driver, "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details"):
             safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
             time_module.sleep(5)
@@ -394,7 +393,7 @@ def huaweiOFF(driver):
             time_module.sleep(10)
             safe_click(driver, By.XPATH, "//span[text()='OK']/..")
             time_module.sleep(3)
-            log("[INFO] Novi Skladove set to 0kW")
+            log("[INFO] BUILDING 2 set to 0kW")
             log(f"[SUCCESS] Automation successful! System is OFF", tag="green")
 
         isOn = "OFF"
