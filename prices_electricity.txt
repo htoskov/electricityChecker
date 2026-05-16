@@ -1,0 +1,15 @@
+[16/05/2026 15:00] Electricity price: N/A
+[16/05/2026 15:00] Electricity price: N/A
+[16/05/2026 15:37] Electricity price: 4041.10 лв. (IMMEDIATE)
+[16/05/2026 15:41] Electricity price: 4041.10 лв. (IMMEDIATE)
+[16/05/2026 15:43] Electricity price: 0.02 лв. (IMMEDIATE)
+[16/05/2026 15:45] Electricity price: 0.02 лв. (IMMEDIATE)
+[16/05/2026 15:50] Electricity price: 0.02 лв. (IMMEDIATE)
+[16/05/2026 15:57] Electricity price: 0.02 лв. (IMMEDIATE)
+[16/05/2026 16:01] Electricity price: 3.08 лв. (IMMEDIATE)
+[16/05/2026 16:02] Electricity price: 3.08 лв. (IMMEDIATE)
+[16/05/2026 16:04] Electricity price: 3.08 лв. (IMMEDIATE)
+[16/05/2026 16:09] Electricity price: 3.24 EUR. (IMMEDIATE)
+[16/05/2026 16:11] Electricity price: 3.24 EUR. (IMMEDIATE)
+[16/05/2026 16:18] Electricity price: 2.91 EUR. (IMMEDIATE)
+[16/05/2026 16:19] Electricity price: 2.91 EUR. (IMMEDIATE)

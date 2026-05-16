@@ -1,0 +1,703 @@
+[2026-05-16 15:35:44] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+                                                                                  
+
+[2026-05-16 15:35:45] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 15:35:45] [INFO] Current hour: 15
+[2026-05-16 15:35:50] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:35:51] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:35:51] [ERROR] No tables found on IBEX page.
+[2026-05-16 15:35:51] [WARNING] Current price unavailable.
+[2026-05-16 15:35:53] [INFO] Waiting until next 30-min check: 16:00
+[2026-05-16 15:36:17] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+                                                                                  
+
+[2026-05-16 15:36:17] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 15:36:17] [INFO] Current hour: 15
+[2026-05-16 15:36:18] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:36:19] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:36:19] [ERROR] No tables found on IBEX page.
+[2026-05-16 15:36:19] [WARNING] Current price unavailable.
+[2026-05-16 15:36:21] [INFO] Waiting until next check: 16:00
+[2026-05-16 15:37:30] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:37:30] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:37:30] [INFO] Current Bulgaria time: 15:37
+[2026-05-16 15:37:31] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:37:32] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:37:37] [INFO] BG time now: 15:37
+[2026-05-16 15:37:37] [INFO] IBEX market time now: 14:37
+[2026-05-16 15:37:37] [INFO] Looking for 30-min block using 15-min rows: 14:30 and 14:45
+[2026-05-16 15:37:37] [INFO] Matched row: QH 58 14:15 - 14:30 0.0 4101.9
+[2026-05-16 15:37:37] [INFO] Extracted price: 4101.9
+[2026-05-16 15:37:37] [INFO] Matched row: QH 59 14:30 - 14:45 0.04 3980.3
+[2026-05-16 15:37:37] [INFO] Extracted price: 3980.3
+[2026-05-16 15:37:37] [INFO] Matched row: QH 60 14:45 - 15:00 3.24 3795.5
+[2026-05-16 15:37:37] [INFO] Extracted price: 3795.5
+[2026-05-16 15:37:37] [INFO] Found 15-min prices used: [4101.9, 3980.3]
+[2026-05-16 15:37:37] [INFO] Current 30-min average price: 4041.10 лв.
+[2026-05-16 15:37:37] [INFO] Current 30-min price: 4041.10 лв.
+[2026-05-16 15:37:37] [ACTION] Price 4041.10 > threshold 15.00. Turning ON Huawei.
+[2026-05-16 15:37:38] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 15:37:49] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 15:37:53] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 1/10). Retrying...
+[2026-05-16 15:37:59] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 2/10). Retrying...
+[2026-05-16 15:38:06] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 3/10). Retrying...
+[2026-05-16 15:38:12] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 4/10). Retrying...
+[2026-05-16 15:38:18] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 5/10). Retrying...
+[2026-05-16 15:38:24] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 6/10). Retrying...
+[2026-05-16 15:38:30] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 7/10). Retrying...
+[2026-05-16 15:40:54] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:40:54] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:40:54] [INFO] Current Bulgaria time: 15:40
+[2026-05-16 15:40:55] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:40:56] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:41:01] [INFO] BG time now: 15:41
+[2026-05-16 15:41:01] [INFO] IBEX market time now: 14:41
+[2026-05-16 15:41:01] [INFO] Looking for 30-min block using 15-min rows: 14:30 and 14:45
+[2026-05-16 15:41:01] [INFO] Matched row: QH 58 14:15 - 14:30 0.0 4101.9
+[2026-05-16 15:41:01] [INFO] Extracted price: 4101.9
+[2026-05-16 15:41:01] [INFO] Matched row: QH 59 14:30 - 14:45 0.04 3980.3
+[2026-05-16 15:41:01] [INFO] Extracted price: 3980.3
+[2026-05-16 15:41:01] [INFO] Matched row: QH 60 14:45 - 15:00 3.24 3795.5
+[2026-05-16 15:41:01] [INFO] Extracted price: 3795.5
+[2026-05-16 15:41:01] [INFO] Found 15-min prices used: [4101.9, 3980.3]
+[2026-05-16 15:41:01] [INFO] Current 30-min average price: 4041.10 лв.
+[2026-05-16 15:41:01] [INFO] Current 30-min price: 4041.10 лв.
+[2026-05-16 15:41:01] [ACTION] Price 4041.10 > threshold 15.00. Turning ON Huawei.
+[2026-05-16 15:41:02] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 15:41:20] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 15:41:21] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 1/10). Retrying...
+[2026-05-16 15:42:48] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:42:48] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:42:48] [INFO] Current Bulgaria time: 15:42
+[2026-05-16 15:42:49] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:42:50] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:43:15] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:43:16] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:43:16] [INFO] Current Bulgaria time: 15:43
+[2026-05-16 15:43:17] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:43:17] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:43:24] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:43:24] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:43:24] [INFO] Current Bulgaria time: 15:43
+[2026-05-16 15:43:25] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:43:45] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:43:45] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:43:45] [INFO] Current Bulgaria time: 15:43
+[2026-05-16 15:43:47] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:43:48] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:43:53] [INFO] BG time now: 15:43
+[2026-05-16 15:43:53] [INFO] IBEX market time now: 14:43
+[2026-05-16 15:43:53] [INFO] Looking for 30-min block: 14:30 and 14:45
+[2026-05-16 15:43:53] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 15:43:53] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 15:43:53] [INFO] Using price column: Price Index
+[2026-05-16 15:43:53] [INFO] Found 15-min PRICE values: [0.0, 0.04]
+[2026-05-16 15:43:53] [INFO] Current 30-min average PRICE: 0.02
+[2026-05-16 15:43:53] [INFO] Current 30-min price: 0.02 лв.
+[2026-05-16 15:43:53] [ACTION] Price 0.02 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 15:43:54] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 15:44:11] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 15:44:13] [WARNING] Failed to click //span[@title='Active Power Adjustment']/button (Attempt 1/10). Retrying...
+[2026-05-16 15:45:50] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:45:50] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:45:50] [INFO] Current Bulgaria time: 15:45
+[2026-05-16 15:45:51] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:45:52] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:45:57] [INFO] BG time now: 15:45
+[2026-05-16 15:45:57] [INFO] IBEX market time now: 14:45
+[2026-05-16 15:45:57] [INFO] Looking for 30-min block: 14:30 and 14:45
+[2026-05-16 15:45:57] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 15:45:57] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 15:45:57] [INFO] Using price column: Price Index
+[2026-05-16 15:45:57] [INFO] Found 15-min PRICE values: [0.0, 0.04]
+[2026-05-16 15:45:57] [INFO] Current 30-min average PRICE: 0.02
+[2026-05-16 15:45:57] [INFO] Current 30-min price: 0.02 лв.
+[2026-05-16 15:45:57] [ACTION] Price 0.02 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 15:45:57] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 15:46:15] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 15:46:18] [INFO] Huawei popup dismissed.
+[2026-05-16 15:46:57] [INFO] BUILDING 1 set to 0kW
+[2026-05-16 15:46:57] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 15:47:00] [WARNING] Popup dismiss failed: Message: element not interactable
+  (Session info: chrome=148.0.7778.168); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementnotinteractableexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x1167123+10a23]
+	chromedriver!GetHandleVerifier [0x1167254+10b54]
+	chromedriver!(No symbol) [0xf81cce]
+	chromedriver!(No symbol) [0xfcc3f4]
+	chromedriver!(No symbol) [0xfc2378]
+	chromedriver!(No symbol) [0xfed78c]
+	chromedriver!(No symbol) [0xfc1db4]
+	chromedriver!(No symbol) [0xfed954]
+	chromedriver!(No symbol) [0x100a936]
+	chromedriver!(No symbol) [0xfed526]
+	chromedriver!(No symbol) [0xfc08f9]
+	chromedriver!(No symbol) [0xfc16b4]
+	chromedriver!GetHandleVerifier [0x1401ac4+2ab3c4]
+	chromedriver!GetHandleVerifier [0x13fd0ed+2a69ed]
+	chromedriver!GetHandleVerifier [0x141e4f5+2c7df5]
+	chromedriver!GetHandleVerifier [0x1181128+2aa28]
+	chromedriver!GetHandleVerifier [0x1188bbd+324bd]
+	chromedriver!GetHandleVerifier [0x116fb28+19428]
+	chromedriver!GetHandleVerifier [0x116fcd5+195d5]
+	chromedriver!GetHandleVerifier [0x11591cf+2acf]
+	KERNEL32!BaseThreadInitThunk [0x75645d49+19]
+	ntdll!RtlInitializeExceptionChain [0x77b2d83b+6b]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77b2d7c1+231]
+
+[2026-05-16 15:47:37] [INFO] BUILDING 2 set to 0kW
+[2026-05-16 15:47:37] [SUCCESS] Automation successful! System is OFF
+[2026-05-16 15:47:37] [INFO] Waiting until next 30-min check: 16:00
+[2026-05-16 15:50:01] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:50:01] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:50:01] [INFO] Current Bulgaria time: 15:50
+[2026-05-16 15:50:02] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:50:12] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:50:12] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:50:12] [INFO] Current Bulgaria time: 15:50
+[2026-05-16 15:50:14] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:50:14] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:50:19] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:50:19] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:50:19] [INFO] Current Bulgaria time: 15:50
+[2026-05-16 15:50:21] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:50:23] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:50:28] [INFO] BG time now: 15:50
+[2026-05-16 15:50:28] [INFO] IBEX market time now: 14:50
+[2026-05-16 15:50:28] [INFO] Looking for 30-min block: 14:30 and 14:45
+[2026-05-16 15:50:28] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 15:50:28] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 15:50:28] [INFO] Using price column: Price Index
+[2026-05-16 15:50:28] [INFO] Found 15-min PRICE values: [0.0, 0.04]
+[2026-05-16 15:50:28] [INFO] Current 30-min average PRICE: 0.02
+[2026-05-16 15:50:28] [INFO] Current 30-min price: 0.02 лв.
+[2026-05-16 15:50:28] [ACTION] Price 0.02 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 15:50:28] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 15:50:45] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 15:50:48] [INFO] No Huawei popup found.
+[2026-05-16 15:51:21] [INFO] BUILDING 1 set to 0kW
+[2026-05-16 15:51:21] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 15:51:24] [INFO] No Huawei popup found.
+[2026-05-16 15:51:57] [INFO] BUILDING 2 set to 0kW
+[2026-05-16 15:51:57] [SUCCESS] Automation successful! System is OFF
+[2026-05-16 15:51:59] [INFO] Waiting until next 30-min check: 16:00
+[2026-05-16 15:54:46] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:54:46] [INFO] Loop [1/96] in current dump window.
+[2026-05-16 15:54:46] [INFO] Current Bulgaria time: 15:54
+[2026-05-16 15:54:48] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:54:49] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:55:53] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:55:53] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 15:55:53] [INFO] Current Bulgaria time: 15:55
+[2026-05-16 15:55:54] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:55:55] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:56:58] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 15:56:58] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 15:56:58] [INFO] Current Bulgaria time: 15:56
+[2026-05-16 15:56:59] 
+======================================================================
+[INFO] Checking prices...
+
+[2026-05-16 15:57:04] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 15:57:09] [INFO] BG time now: 15:57
+[2026-05-16 15:57:09] [INFO] IBEX market time now: 14:57
+[2026-05-16 15:57:09] [INFO] Looking for 30-min block: 14:30 and 14:45
+[2026-05-16 15:57:09] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 15:57:09] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 15:57:09] [INFO] Using price column: Price Index
+[2026-05-16 15:57:09] [INFO] Found 15-min PRICE values: [0.0, 0.04]
+[2026-05-16 15:57:09] [INFO] Current 30-min average PRICE: 0.02
+[2026-05-16 15:57:09] [INFO] Current 30-min price: 0.02 лв.
+[2026-05-16 15:57:09] [ACTION] Price 0.02 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 15:57:09] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 15:57:26] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 15:57:29] [INFO] No Huawei popup found.
+[2026-05-16 15:58:02] [INFO] PROIZVODSTVENI SGRADI set to 0kW
+[2026-05-16 15:58:02] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 15:58:05] [INFO] No Huawei popup found.
+[2026-05-16 15:58:38] [INFO] NOVI SKLADOVE set to 0kW
+[2026-05-16 15:58:38] [SUCCESS] Successful! System is OFF
+[2026-05-16 15:58:40] [INFO] Waiting until next 30-min check: 16:00
+[2026-05-16 16:00:03] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:00:03] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 16:00:03] [INFO] Current Bulgaria time: 16:00
+[2026-05-16 16:00:04] =============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:00:29] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:00:29] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 16:00:29] [INFO] Current Bulgaria time: 16:00
+[2026-05-16 16:00:31] =============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:00:43] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:00:44] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 16:00:44] [INFO] Current Bulgaria time: 16:00
+[2026-05-16 16:00:45] =============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:00:46] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:00:51] [ERROR] Unexpected error: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=148.0.7778.168); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x1167123+10a23]
+	chromedriver!GetHandleVerifier [0x1167254+10b54]
+	chromedriver!(No symbol) [0xf81e90]
+	chromedriver!(No symbol) [0xf70d8e]
+	chromedriver!(No symbol) [0xf8f97e]
+	chromedriver!(No symbol) [0xff3cdd]
+	chromedriver!(No symbol) [0x100a2a9]
+	chromedriver!(No symbol) [0xfed526]
+	chromedriver!(No symbol) [0xfc08f9]
+	chromedriver!(No symbol) [0xfc16b4]
+	chromedriver!GetHandleVerifier [0x1401ac4+2ab3c4]
+	chromedriver!GetHandleVerifier [0x13fd0ed+2a69ed]
+	chromedriver!GetHandleVerifier [0x141e4f5+2c7df5]
+	chromedriver!GetHandleVerifier [0x1181128+2aa28]
+	chromedriver!GetHandleVerifier [0x1188bbd+324bd]
+	chromedriver!GetHandleVerifier [0x116fb28+19428]
+	chromedriver!GetHandleVerifier [0x116fcd5+195d5]
+	chromedriver!GetHandleVerifier [0x11591cf+2acf]
+	KERNEL32!BaseThreadInitThunk [0x75645d49+19]
+	ntdll!RtlInitializeExceptionChain [0x77b2d83b+6b]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77b2d7c1+231]
+
+[2026-05-16 16:00:53] [INFO] Waiting until next 30-min check: 16:30
+[2026-05-16 16:01:03] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:01:03] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 16:01:03] [INFO] Current Bulgaria time: 16:01
+[2026-05-16 16:01:04] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:01:05] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:01:10] [INFO] BG time now: 16:01
+[2026-05-16 16:01:10] [INFO] IBEX market time now: 15:01
+[2026-05-16 16:01:10] [INFO] Looking for 30-min block: 15:00 and 15:15
+[2026-05-16 16:01:10] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 16:01:10] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 16:01:10] [INFO] Using price column: Price Index
+[2026-05-16 16:01:10] [INFO] Found 15-min PRICE values: [3.24, 2.91]
+[2026-05-16 16:01:10] [INFO] Current 30-min average PRICE: 3.08
+[2026-05-16 16:01:10] [INFO] Current 30-min price: 3.08 лв.
+[2026-05-16 16:01:10] [ACTION] Price 3.08 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:01:11] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 16:01:44] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:01:44] [INFO] Loop [1/48] in current dump window.
+[2026-05-16 16:01:44] [INFO] Current Bulgaria time: 16:01
+[2026-05-16 16:01:45] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:01:47] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:02:25] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:02:25] [INFO] [1/48] before window clear.
+[2026-05-16 16:02:25] [INFO] Current Bulgaria time: 16:02
+[2026-05-16 16:02:26] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:02:27] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:02:32] [INFO] IBEX market time now: 15:02
+[2026-05-16 16:02:32] [INFO] Looking for 30-min block: 15:00 and 15:15
+[2026-05-16 16:02:32] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 16:02:32] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 16:02:32] [INFO] Using price column: Price Index
+[2026-05-16 16:02:32] [INFO] Found 15-min PRICE values: [3.24, 2.91]
+[2026-05-16 16:02:32] [INFO] Current 30-min average PRICE: 3.08
+[2026-05-16 16:02:32] [INFO] Current 30-min price: 3.08 лв.
+[2026-05-16 16:02:32] [ACTION] Price 3.08 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:02:33] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 16:03:47] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:03:47] [INFO] [1/48] before window clear.
+[2026-05-16 16:03:47] [INFO] Current Bulgaria time: 16:03
+[2026-05-16 16:03:48] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:03:50] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:03:57] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:03:57] [INFO] [1/48] before window clear.
+[2026-05-16 16:03:57] [INFO] Current Bulgaria time: 16:03
+[2026-05-16 16:03:58] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:03:59] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:04:04] [INFO] IBEX market time now: 15:04
+[2026-05-16 16:04:04] [INFO] Looking for 30-min block: 15:00 and 15:15
+[2026-05-16 16:04:04] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 16:04:04] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 16:04:04] [INFO] Using price column: Price Index
+[2026-05-16 16:04:04] [INFO] Found 15-min PRICE values: [3.24, 2.91]
+[2026-05-16 16:04:04] [INFO] Current 30-min average PRICE: 3.08
+[2026-05-16 16:04:04] [INFO] Current 30-min price: 3.08 лв.
+[2026-05-16 16:04:04] [ACTION] Price 3.08 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:04:05] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 16:08:00] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:08:00] [INFO] [1/48] before window clear.
+[2026-05-16 16:08:00] [INFO] Current Bulgaria time: 16:08
+[2026-05-16 16:08:01] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:08:03] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:09:40] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:09:40] [INFO] [1/48] before window clear.
+[2026-05-16 16:09:40] [INFO] Current Bulgaria time: 16:09
+[2026-05-16 16:09:41] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:09:42] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:09:47] [INFO] IBEX market time now: 15:09
+[2026-05-16 16:09:47] [INFO] Looking for current 15-min period: 15:00
+[2026-05-16 16:09:47] [INFO] Using price column: Base (EUR/MWh)
+[2026-05-16 16:09:47] [INFO] Using price column: Цена (EUR/MWh)
+[2026-05-16 16:09:47] [INFO] Using price column: Price Index
+[2026-05-16 16:09:47] [INFO] Found current 15-min PRICE value: 3.24
+[2026-05-16 16:09:47] [INFO] Current 15-min price: 3.24 EUR.
+[2026-05-16 16:09:47] [ACTION] Price 3.24 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:09:48] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 16:10:05] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 16:10:08] [INFO] No Huawei popup found.
+[2026-05-16 16:10:45] [INFO] PROIZVODSTVENI SGRADI set to 0kW
+[2026-05-16 16:10:45] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 16:10:48] [INFO] No Huawei popup found.
+[2026-05-16 16:11:28] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:11:28] [INFO] [1/48] before window clear.
+[2026-05-16 16:11:28] [INFO] Current Bulgaria time: 16:11
+[2026-05-16 16:11:30] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:11:30] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:11:35] [INFO] IBEX market time now: 15:11
+[2026-05-16 16:11:35] [INFO] Looking for current 15-min period: 15:00
+[2026-05-16 16:11:35] [INFO] Found current 15-min PRICE value: 3.24 EUR
+[2026-05-16 16:11:35] [ACTION] Price 3.24 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:11:36] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 16:11:53] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 16:11:56] [INFO] No Huawei popup found.
+[2026-05-16 16:12:30] [INFO] PROIZVODSTVENI SGRADI set to 0kW
+[2026-05-16 16:12:30] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 16:12:33] [INFO] No Huawei popup found.
+[2026-05-16 16:13:06] [INFO] NOVI SKLADOVE set to 0kW
+[2026-05-16 16:13:06] [SUCCESS] Successful! System is OFF
+[2026-05-16 16:13:08] [INFO] Waiting until next 30-min check: 16:30
+[2026-05-16 16:17:57] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:17:57] [INFO] [1/48] before window clear.
+[2026-05-16 16:17:57] [INFO] Current Bulgaria time: 16:17
+[2026-05-16 16:17:58] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:18:21] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:18:22] [INFO] [1/48] before window clear.
+[2026-05-16 16:18:22] [INFO] Current Bulgaria time: 16:18
+[2026-05-16 16:18:23] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:18:24] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:18:29] [INFO] IBEX market time now: 15:18
+[2026-05-16 16:18:29] [INFO] Looking for current 15-min period: 15:15
+[2026-05-16 16:18:29] [INFO] Found current 15-min PRICE value: 2.91 EUR
+[2026-05-16 16:18:29] [ACTION] Price 2.91 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:18:29] [WARNING] Failed to load HUAWEI_URL (Attempt 1/5). Error: Message: invalid argument
+  (Session info: chrome=148.0.7778.168)
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x1167123+10a23]
+	chromedriver!GetHandleVerifier [0x1167254+10b54]
+	chromedriver!(No symbol) [0xf81cce]
+	chromedriver!(No symbol) [0xf719ca]
+	chromedriver!(No symbol) [0xf701c6]
+	chromedriver!(No symbol) [0xf7070a]
+	chromedriver!(No symbol) [0xf8592e]
+	chromedriver!(No symbol) [0x100b3a4]
+	chromedriver!(No symbol) [0xfed78c]
+	chromedriver!(No symbol) [0x100a936]
+	chromedriver!(No symbol) [0xfed526]
+	chromedriver!(No symbol) [0xfc08f9]
+	chromedriver!(No symbol) [0xfc16b4]
+	chromedriver!GetHandleVerifier [0x1401ac4+2ab3c4]
+	chromedriver!GetHandleVerifier [0x13fd0ed+2a69ed]
+	chromedriver!GetHandleVerifier [0x141e4f5+2c7df5]
+	chromedriver!GetHandleVerifier [0x1181128+2aa28]
+	chromedriver!GetHandleVerifier [0x1188bbd+324bd]
+	chromedriver!GetHandleVerifier [0x116fb28+19428]
+	chromedriver!GetHandleVerifier [0x116fcd5+195d5]
+	chromedriver!GetHandleVerifier [0x11591cf+2acf]
+	KERNEL32!BaseThreadInitThunk [0x75645d49+19]
+	ntdll!RtlInitializeExceptionChain [0x77b2d83b+6b]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77b2d7c1+231]
+. Retrying in 10 sec...
+[2026-05-16 16:19:16] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 16:19:16] [INFO] [1/48] before window clear.
+[2026-05-16 16:19:16] [INFO] Current Bulgaria time: 16:19
+[2026-05-16 16:19:17] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 16:19:18] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 16:19:23] [INFO] IBEX market time now: 15:19
+[2026-05-16 16:19:23] [INFO] Looking for current 15-min period: 15:15
+[2026-05-16 16:19:23] [INFO] Found current 15-min PRICE value: 2.91 EUR
+[2026-05-16 16:19:23] [ACTION] Price 2.91 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 16:19:23] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 16:19:41] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 16:19:44] [INFO] No update popup found.
+[2026-05-16 16:20:17] [INFO] PROIZVODSTVENI SGRADI set to 0kW
+[2026-05-16 16:20:17] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 16:20:20] [INFO] No update popup found.
+[2026-05-16 16:20:53] [INFO] NOVI SKLADOVE set to 0kW
+[2026-05-16 16:20:53] [SUCCESS] Successful! System is OFF
+[2026-05-16 16:20:55] [INFO] Waiting until next 30-min check: 16:30
