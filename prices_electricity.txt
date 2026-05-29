@@ -13,3 +13,7 @@
 [16/05/2026 16:11] Electricity price: 3.24 EUR. (IMMEDIATE)
 [16/05/2026 16:18] Electricity price: 2.91 EUR. (IMMEDIATE)
 [16/05/2026 16:19] Electricity price: 2.91 EUR. (IMMEDIATE)
+[16/05/2026 17:19] Electricity price: N/A (IMMEDIATE)
+[16/05/2026 17:19] Electricity price: 12.46 EUR. (IMMEDIATE)
+[16/05/2026 17:30] Electricity price: 23.70 EUR. (IMMEDIATE)
+[16/05/2026 17:42] Electricity price: 23.70 EUR. (IMMEDIATE)

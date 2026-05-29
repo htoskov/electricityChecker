@@ -4,6 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException, TimeoutException
+from selenium.webdriver.common.keys import Keys
 
 import chromedriver_autoinstaller
 from bs4 import BeautifulSoup
@@ -232,11 +233,26 @@ def safe_send_keys(driver, by, value, keys, retries=10, wait_time=10):
         try:
             time_module.sleep(2)
             element = WebDriverWait(driver, wait_time).until(
-                EC.presence_of_element_located((by, value))
+                EC.element_to_be_clickable((by, value))
             )
-            element.clear()
-            element.send_keys(keys)
+
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+            element.click()
+
+            # Properly clear preset value like 0, old kW, etc.
+            element.send_keys(Keys.CONTROL, "a")
+            element.send_keys(Keys.BACKSPACE)
+
+            # Extra JS clear for stubborn Ant Design inputs
+            driver.execute_script("""
+                arguments[0].value = '';
+                arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+                arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
+            """, element)
+
+            element.send_keys(str(keys))
             return True
+
         except (TimeoutException, WebDriverException):
             log(
                 f"[WARNING] Failed to send keys to {value} "
@@ -247,7 +263,6 @@ def safe_send_keys(driver, by, value, keys, retries=10, wait_time=10):
 
     log(f"[ERROR] Could not send keys to {value} after {retries} attempts.", tag="red")
     return False
-
 
 # =========================
 # PRICE PARSING

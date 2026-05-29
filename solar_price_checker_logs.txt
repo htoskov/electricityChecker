@@ -701,3 +701,149 @@ Stacktrace:
 [2026-05-16 16:20:53] [INFO] NOVI SKLADOVE set to 0kW
 [2026-05-16 16:20:53] [SUCCESS] Successful! System is OFF
 [2026-05-16 16:20:55] [INFO] Waiting until next 30-min check: 16:30
+[2026-05-16 17:18:53] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 17:18:53] [INFO] [1/48] before window clear.
+[2026-05-16 17:18:53] [INFO] Current Bulgaria time: 17:18
+[2026-05-16 17:18:58] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 17:18:58] [INFO] [1/48] before window clear.
+[2026-05-16 17:18:58] [INFO] Current Bulgaria time: 17:18
+[2026-05-16 17:18:59] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 17:19:00] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 17:19:07] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 17:19:07] [INFO] [1/48] before window clear.
+[2026-05-16 17:19:07] [INFO] Current Bulgaria time: 17:19
+[2026-05-16 17:19:08] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 17:19:09] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 17:19:14] [ERROR] No tables found on IBEX page.
+[2026-05-16 17:19:14] [WARNING] Current price unavailable. Skipping Huawei action.
+[2026-05-16 17:19:16] [INFO] Waiting until next 30-min check: 17:30
+[2026-05-16 17:19:40] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 17:19:40] [INFO] [1/48] before window clear.
+[2026-05-16 17:19:40] [INFO] Current Bulgaria time: 17:19
+[2026-05-16 17:19:41] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 17:19:46] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 17:19:51] [INFO] IBEX market time now: 16:19
+[2026-05-16 17:19:51] [INFO] Looking for current 15-min period: 16:15
+[2026-05-16 17:19:51] [INFO] Found current 15-min PRICE value: 12.46 EUR
+[2026-05-16 17:19:51] [ACTION] Price 12.46 <= threshold 15.00. Turning OFF Huawei.
+[2026-05-16 17:19:51] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 17:20:08] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 17:20:11] [INFO] No update popup found.
+[2026-05-16 17:20:48] [INFO] PROIZVODSTVENI SGRADI set to 0kW
+[2026-05-16 17:20:48] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 17:20:51] [INFO] No update popup found.
+[2026-05-16 17:21:28] [INFO] NOVI SKLADOVE set to 0kW
+[2026-05-16 17:21:28] [SUCCESS] Successful! System is OFF
+[2026-05-16 17:21:30] [INFO] Waiting until next 30-min check: 17:30
+[2026-05-16 17:30:10] [INFO] [2/48] before window clear.
+[2026-05-16 17:30:10] [INFO] Current Bulgaria time: 17:30
+[2026-05-16 17:30:11] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 17:30:13] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 17:30:18] [INFO] IBEX market time now: 16:30
+[2026-05-16 17:30:18] [INFO] Looking for current 15-min period: 16:30
+[2026-05-16 17:30:18] [INFO] Found current 15-min PRICE value: 23.70 EUR
+[2026-05-16 17:30:18] [ACTION] Price 23.70 > threshold 15.00. Turning ON Huawei.
+[2026-05-16 17:30:18] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 17:30:33] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 17:30:36] [INFO] No update popup found.
+[2026-05-16 17:31:01] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 1/10). Retrying...
+[2026-05-16 17:31:16] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 2/10). Retrying...
+[2026-05-16 17:31:32] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 3/10). Retrying...
+[2026-05-16 17:31:47] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 4/10). Retrying...
+[2026-05-16 17:32:02] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 5/10). Retrying...
+[2026-05-16 17:32:17] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 6/10). Retrying...
+[2026-05-16 17:32:33] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 7/10). Retrying...
+[2026-05-16 17:32:48] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 8/10). Retrying...
+[2026-05-16 17:33:03] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 9/10). Retrying...
+[2026-05-16 17:33:18] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 10/10). Retrying...
+[2026-05-16 17:33:23] [ERROR] Could not click //span[text()='Preset']/.. after 10 attempts.
+[2026-05-16 17:33:38] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 1/10). Retrying...
+[2026-05-16 17:33:54] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 2/10). Retrying...
+[2026-05-16 17:34:09] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 3/10). Retrying...
+[2026-05-16 17:34:24] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 4/10). Retrying...
+[2026-05-16 17:34:39] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 5/10). Retrying...
+[2026-05-16 17:34:55] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 6/10). Retrying...
+[2026-05-16 17:35:10] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 7/10). Retrying...
+[2026-05-16 17:35:25] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 8/10). Retrying...
+[2026-05-16 17:35:40] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 9/10). Retrying...
+[2026-05-16 17:35:56] [WARNING] Failed to click //span[text()='Execute']/.. (Attempt 10/10). Retrying...
+[2026-05-16 17:36:01] [ERROR] Could not click //span[text()='Execute']/.. after 10 attempts.
+[2026-05-16 17:36:21] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 1/10). Retrying...
+[2026-05-16 17:36:36] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 2/10). Retrying...
+[2026-05-16 17:36:51] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 3/10). Retrying...
+[2026-05-16 17:37:06] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 4/10). Retrying...
+[2026-05-16 17:37:21] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 5/10). Retrying...
+[2026-05-16 17:37:37] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 6/10). Retrying...
+[2026-05-16 17:37:52] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 7/10). Retrying...
+[2026-05-16 17:38:07] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 8/10). Retrying...
+[2026-05-16 17:38:22] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 9/10). Retrying...
+[2026-05-16 17:38:37] [WARNING] Failed to click //span[text()='OK']/.. (Attempt 10/10). Retrying...
+[2026-05-16 17:38:42] [ERROR] Could not click //span[text()='OK']/.. after 10 attempts.
+[2026-05-16 17:38:45] [INFO] PROIZVODSTVENI SGRADI set to 185kW
+[2026-05-16 17:38:45] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-05-16 17:38:48] [INFO] No update popup found.
+[2026-05-16 17:39:14] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 1/10). Retrying...
+[2026-05-16 17:39:29] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 2/10). Retrying...
+[2026-05-16 17:39:44] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 3/10). Retrying...
+[2026-05-16 17:39:59] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 4/10). Retrying...
+[2026-05-16 17:40:14] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 5/10). Retrying...
+[2026-05-16 17:40:30] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 6/10). Retrying...
+[2026-05-16 17:40:45] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 7/10). Retrying...
+[2026-05-16 17:41:00] [WARNING] Failed to click //span[text()='Preset']/.. (Attempt 8/10). Retrying...
+[2026-05-16 17:42:23] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-05-16 17:42:23] [INFO] [1/48] before window clear.
+[2026-05-16 17:42:23] [INFO] Current Bulgaria time: 17:42
+[2026-05-16 17:42:24] ===============================================================================
+[INFO] Checking prices...
+[2026-05-16 17:42:24] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-05-16 17:42:29] [INFO] IBEX market time now: 16:42
+[2026-05-16 17:42:29] [INFO] Looking for current 15-min period: 16:30
+[2026-05-16 17:42:30] [INFO] Found current 15-min PRICE value: 23.70 EUR
+[2026-05-16 17:42:30] [ACTION] Price 23.70 > threshold 15.00. Turning ON Huawei.
+[2026-05-16 17:42:30] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-05-16 17:42:44] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-05-16 17:42:47] [INFO] No update popup found.
