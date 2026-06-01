@@ -847,3 +847,94 @@ Stacktrace:
 [2026-05-16 17:42:30] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
 [2026-05-16 17:42:44] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
 [2026-05-16 17:42:47] [INFO] No update popup found.
+[2026-06-01 14:51:16] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-06-01 14:51:16] [INFO] [1/48] before window clear.
+[2026-06-01 14:51:16] [INFO] Current Bulgaria time: 14:51
+[2026-06-01 14:51:21] ===============================================================================
+[INFO] Checking prices...
+[2026-06-01 14:51:23] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-06-01 14:51:28] [INFO] IBEX market time now: 13:51
+[2026-06-01 14:51:28] [INFO] Looking for current 15-min period: 13:45
+[2026-06-01 14:51:28] [INFO] Found current 15-min PRICE value: 88.16 EUR
+[2026-06-01 14:51:28] [INFO] Today is a weekday. Skipping price-based Huawei action.
+[2026-06-01 14:51:31] [INFO] Waiting until next 30-min check: 15:00
+[2026-06-01 14:53:22] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-06-01 14:53:23] [INFO] [1/48] before window clear.
+[2026-06-01 14:53:23] [INFO] Current Bulgaria time: 14:53
+[2026-06-01 14:53:24] ===============================================================================
+[INFO] Checking prices...
+[2026-06-01 14:53:25] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-06-01 14:53:31] [INFO] IBEX market time now: 13:53
+[2026-06-01 14:53:31] [INFO] Looking for current 15-min period: 13:45
+[2026-06-01 14:53:31] [INFO] Found current 15-min PRICE value: 88.16 EUR
+[2026-06-01 14:53:31] [ACTION] Price 88.16 > threshold 15.00. Turning ON Huawei.
+[2026-06-01 14:53:32] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-06-01 14:53:51] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-06-01 14:53:54] [INFO] No update popup found.
+[2026-06-01 15:13:06] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-06-01 15:13:06] [INFO] [1/48] before window clear.
+[2026-06-01 15:13:06] [INFO] Current Bulgaria time: 15:13
+[2026-06-01 15:13:06] [ERROR] Main loop crash: <urlopen error [Errno 11001] getaddrinfo failed>
+[2026-06-01 15:13:06] [INFO] Waiting until next 30-min check: 15:30
+[2026-06-01 15:13:45] 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//     ___  ___  _      _   ___   ___ ___ ___ ___ ___    ___ _  _ ___ ___ _  _____ ___       ///
+//    / __|/ _ \| |    /_\ | _ \ | _ \ _ \_ _/ __| __|  / __| || | __/ __| |/ / __| _ \     ///
+//    \__ \ (_) | |__ / _ \|   / |  _/   /| | (__| _|  | (__| __ | _| (__| ' <| _||   /    ///
+//    |___/\___/|____/_/ \_\_|_\ |_| |_|_\___\___|___|  \___|_||_|___\___|_|\_\___|_|_\   ///      
+//                                                                                       ///                                    
+///////////////////////////////////////////////////////////////////////////////////////////
+
+[2026-06-01 15:13:45] [INFO] [1/48] before window clear.
+[2026-06-01 15:13:45] [INFO] Current Bulgaria time: 15:13
+[2026-06-01 15:13:49] ===============================================================================
+[INFO] Checking prices...
+[2026-06-01 15:13:50] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-06-01 15:13:55] [INFO] IBEX market time now: 14:13
+[2026-06-01 15:13:55] [INFO] Looking for current 15-min period: 14:00
+[2026-06-01 15:13:55] [INFO] Found current 15-min PRICE value: 90.42 EUR
+[2026-06-01 15:13:55] [ACTION] Price 90.42 > threshold 15.00. Turning ON Huawei.
+[2026-06-01 15:13:56] [INFO] Loaded URL: https://eu5.fusionsolar.huawei.com/
+[2026-06-01 15:14:14] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details
+[2026-06-01 15:14:17] [INFO] No update popup found.
+[2026-06-01 15:14:55] [INFO] PROIZVODSTVENI SGRADI set to 185kW
+[2026-06-01 15:14:55] [INFO] Loaded URL: https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details
+[2026-06-01 15:14:58] [INFO] No update popup found.
+[2026-06-01 15:15:35] [INFO] NOVI SKLADOVE set to 165kW
+[2026-06-01 15:15:35] [SUCCESS] Successful! System is ON
+[2026-06-01 15:15:37] [INFO] Waiting until next 30-min check: 15:30
+[2026-06-01 15:30:10] [INFO] [2/48] before window clear.
+[2026-06-01 15:30:10] [INFO] Current Bulgaria time: 15:30
+[2026-06-01 15:30:11] ===============================================================================
+[INFO] Checking prices...
+[2026-06-01 15:30:14] [INFO] Loaded URL: https://ibex.bg/sdac-pv-bg/
+[2026-06-01 15:30:19] [INFO] IBEX market time now: 14:30
+[2026-06-01 15:30:19] [INFO] Looking for current 15-min period: 14:30
+[2026-06-01 15:30:19] [INFO] Found current 15-min PRICE value: 91.12 EUR
+[2026-06-01 15:30:19] [ACTION] Price 91.12 > threshold 15.00. Turning ON Huawei.
+[2026-06-01 15:30:19] [INFO] Huawei already ON. Skipping...
+[2026-06-01 15:30:21] [INFO] Waiting until next 30-min check: 16:00
