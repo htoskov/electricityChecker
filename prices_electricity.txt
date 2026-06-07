@@ -21,3 +21,5 @@
 [01/06/2026 14:53] Electricity price: 88.16 EUR. (IMMEDIATE)
 [01/06/2026 15:13] Electricity price: 90.42 EUR. (IMMEDIATE)
 [01/06/2026 15:30] Electricity price: 91.12 EUR. (IMMEDIATE)
+[07/06/2026 12:46] Electricity price: -1.01 EUR. (IMMEDIATE)
+[07/06/2026 12:54] Electricity price: -1.01 EUR. (IMMEDIATE)

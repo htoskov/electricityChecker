@@ -9,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 import chromedriver_autoinstaller
 from bs4 import BeautifulSoup
 import json
+import re
 import time as time_module
 from datetime import datetime, timedelta
 from suntime import Sun
@@ -29,22 +30,10 @@ sofia_lat = 42.69
 sofia_lon = 23.32
 
 sofia_tz = pytz.timezone("Europe/Sofia")
-market_tz = pytz.timezone("Europe/Brussels")  # CET/CEST market time used by IBEX
+market_tz = pytz.timezone("Europe/Brussels")  # CET/CEST delivery time used by IBEX.
 utc_tz = pytz.utc
 
 sun = Sun(sofia_lat, sofia_lon)
-
-today_utc = datetime.now(utc_tz)
-sunrise_utc = sun.get_sunrise_time(today_utc)
-sunset_utc = sun.get_sunset_time(today_utc)
-
-sunrise_local = sunrise_utc.astimezone(sofia_tz)
-sunset_local = sunset_utc.astimezone(sofia_tz)
-
-sunrise_hour = sunrise_local.strftime("%H")
-sunrise_minute = sunrise_local.strftime("%M")
-sunset_hour = sunset_local.strftime("%H")
-sunset_minute = sunset_local.strftime("%M")
 
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -71,6 +60,7 @@ price_file = open(PRICE_FILE_PATH, "a", encoding="utf-8", buffering=1)
 loop_counter = 0
 dump_index = 1
 DUMP_SIZE = 48
+CHROMEDRIVER_READY = False
 
 
 R = r"""
@@ -172,11 +162,77 @@ log(R)
 
 
 # =========================
+# TIME HELPERS
+# =========================
+
+def get_sun_window(day=None):
+    if day is None:
+        day = datetime.now(sofia_tz).date()
+
+    day_noon_local = sofia_tz.localize(datetime.combine(day, datetime.min.time()) + timedelta(hours=12))
+    next_day_noon_local = day_noon_local + timedelta(days=1)
+    day_noon_utc = day_noon_local.astimezone(utc_tz)
+    next_day_noon_utc = next_day_noon_local.astimezone(utc_tz)
+
+    sunrise = sun.get_sunrise_time(day_noon_utc).astimezone(sofia_tz)
+    sunset = sun.get_sunset_time(next_day_noon_utc).astimezone(sofia_tz)
+
+    return sunrise, sunset
+
+
+def is_weekend(day=None):
+    if day is None:
+        day = datetime.now(sofia_tz).date()
+
+    return day.weekday() in (5, 6)
+
+
+def is_monday_sunrise_start_window(now=None):
+    if now is None:
+        now = datetime.now(sofia_tz)
+
+    sunrise, _ = get_sun_window(now.date())
+    start = sunrise + timedelta(hours=1)
+    end = start + timedelta(minutes=30)
+
+    return now.weekday() == 0 and start <= now < end
+
+
+def is_outside_solar_hours(now=None):
+    if now is None:
+        now = datetime.now(sofia_tz)
+
+    sunrise, sunset = get_sun_window(now.date())
+    return now < sunrise or now >= sunset
+
+
+def get_next_sunrise(now=None):
+    if now is None:
+        now = datetime.now(sofia_tz)
+
+    for days_ahead in range(0, 8):
+        candidate_day = now.date() + timedelta(days=days_ahead)
+        sunrise, _ = get_sun_window(candidate_day)
+
+        if sunrise > now:
+            return sunrise
+
+    return now + timedelta(hours=1)
+
+
+# =========================
 # SELENIUM HELPERS
 # =========================
 
 def get_driver():
-    chromedriver_autoinstaller.install()
+    global CHROMEDRIVER_READY
+
+    if not CHROMEDRIVER_READY:
+        try:
+            chromedriver_autoinstaller.install()
+            CHROMEDRIVER_READY = True
+        except Exception as e:
+            log(f"[WARNING] ChromeDriver auto-install check failed: {e}. Trying existing driver.")
 
     options = Options()
 
@@ -191,10 +247,21 @@ def get_driver():
     return driver
 
 
-def safe_get(driver, url, retries=5, wait_time=10):
+def wait_for_document_ready(driver, timeout=30):
+    try:
+        WebDriverWait(driver, timeout).until(
+            lambda d: d.execute_script("return document.readyState") == "complete"
+        )
+        return True
+    except Exception:
+        return False
+
+
+def safe_get(driver, url, retries=5, wait_time=10, ready_timeout=30):
     for attempt in range(1, retries + 1):
         try:
             driver.get(url)
+            wait_for_document_ready(driver, ready_timeout)
             log(f"[INFO] Loaded URL: {url}")
             return True
         except WebDriverException as e:
@@ -212,11 +279,19 @@ def safe_get(driver, url, retries=5, wait_time=10):
 def safe_click(driver, by, value, retries=10, wait_time=10):
     for attempt in range(1, retries + 1):
         try:
-            WebDriverWait(driver, wait_time).until(
+            element = WebDriverWait(driver, wait_time).until(
                 EC.element_to_be_clickable((by, value))
-            ).click()
+            )
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+            time_module.sleep(0.5)
+
+            try:
+                element.click()
+            except Exception:
+                driver.execute_script("arguments[0].click();", element)
+
             return True
-        except (TimeoutException, WebDriverException):
+        except Exception:
             log(
                 f"[WARNING] Failed to click {value} "
                 f"(Attempt {attempt}/{retries}). Retrying...",
@@ -253,7 +328,7 @@ def safe_send_keys(driver, by, value, keys, retries=10, wait_time=10):
             element.send_keys(str(keys))
             return True
 
-        except (TimeoutException, WebDriverException):
+        except Exception:
             log(
                 f"[WARNING] Failed to send keys to {value} "
                 f"(Attempt {attempt}/{retries}). Retrying...",
@@ -300,17 +375,249 @@ def normalize_price(value):
         return None
 
 
-def get_current_15min_market_time():
+def get_target_delivery_date():
+    return datetime.now(sofia_tz).date()
+
+
+def format_ibex_date(value):
+    return value.strftime("%d.%m.%Y")
+
+
+def format_ibex_bulgarian_date(value):
+    months = {
+        1: "януари",
+        2: "февруари",
+        3: "март",
+        4: "април",
+        5: "май",
+        6: "юни",
+        7: "юли",
+        8: "август",
+        9: "септември",
+        10: "октомври",
+        11: "ноември",
+        12: "декември",
+    }
+
+    return f"{value.day} {months[value.month]} {value.year}"
+
+
+def parse_ibex_date(value):
+    if value is None:
+        return None
+
+    txt = str(value).strip().replace("\xa0", " ")
+    txt = re.sub(r"\s+", " ", txt)
+
+    for fmt in ("%d/%m/%Y", "%d.%m.%Y", "%Y-%m-%d", "%d-%m-%Y"):
+        try:
+            return datetime.strptime(txt[:10], fmt).date()
+        except ValueError:
+            pass
+
+    return None
+
+
+def get_current_market_periods():
     bg_now = datetime.now(sofia_tz)
     market_now = bg_now.astimezone(market_tz)
 
-    current_q = market_now.replace(
+    quarter_start = market_now.replace(
         minute=(market_now.minute // 15) * 15,
         second=0,
         microsecond=0
-    ).strftime("%H:%M")
+    )
+    quarter_end = quarter_start + timedelta(minutes=15)
+    hour_start = market_now.replace(minute=0, second=0, microsecond=0)
+    hour_end = hour_start + timedelta(hours=1)
 
-    return current_q, market_now.strftime("%H:%M"), bg_now.strftime("%H:%M")
+    periods = [
+        quarter_start.strftime("%H:%M"),
+        f"{quarter_start:%H:%M} - {quarter_end:%H:%M}",
+        f"{quarter_start:%H:%M}-{quarter_end:%H:%M}",
+        f"{hour_start.hour} - {hour_end.hour}",
+        f"{hour_start:%H} - {hour_end:%H}",
+        f"{hour_start:%H:%M} - {hour_end:%H:%M}",
+        f"{hour_start:%H:%M}-{hour_end:%H:%M}",
+    ]
+
+    return periods, market_now.strftime("%H:%M"), bg_now.strftime("%H:%M")
+
+
+def row_matches_delivery_date(row, date_columns, target_date):
+    if not date_columns:
+        return True
+
+    for col in date_columns:
+        parsed_date = parse_ibex_date(row.get(col))
+        if parsed_date == target_date:
+            return True
+
+    return False
+
+
+def get_ibex_date_picker_date(driver):
+    try:
+        date_input = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "datePicker"))
+        )
+        return parse_ibex_date(date_input.get_attribute("value"))
+    except Exception:
+        return None
+
+
+def wait_for_ibex_delivery_date(driver, target_date, timeout=15):
+    end_time = time_module.time() + timeout
+
+    while time_module.time() < end_time:
+        current_date = get_ibex_date_picker_date(driver)
+
+        if current_date == target_date:
+            return True
+
+        time_module.sleep(1)
+
+    return False
+
+
+def set_ibex_delivery_date_direct(driver, target_date):
+    date_txt = format_ibex_date(target_date)
+
+    try:
+        date_input = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "datePicker"))
+        )
+        date_input.click()
+        date_input.send_keys(Keys.CONTROL, "a")
+        date_input.send_keys(Keys.BACKSPACE)
+        date_input.send_keys(date_txt)
+        date_input.send_keys(Keys.ENTER)
+
+        if wait_for_ibex_delivery_date(driver, target_date, timeout=15):
+            log(f"[INFO] IBEX delivery date set directly to {date_txt}.")
+            return True
+
+    except Exception as e:
+        log(f"[WARNING] Direct IBEX date selection failed: {e}")
+
+    return False
+
+
+def ensure_ibex_delivery_date(driver):
+    target_date = get_target_delivery_date()
+    target_txt = format_ibex_date(target_date)
+    current_date = get_ibex_date_picker_date(driver)
+
+    if current_date is None:
+        log("[WARNING] Could not read IBEX delivery date picker. Will parse rendered data only.")
+        return False
+
+    if current_date == target_date:
+        log(f"[INFO] IBEX delivery date is already today: {target_txt}.")
+        return True
+
+    log(
+        f"[WARNING] IBEX page opened delivery date {format_ibex_date(current_date)}, "
+        f"but Bulgaria today is {target_txt}."
+    )
+
+    if current_date > target_date:
+        days_back = min((current_date - target_date).days, 31)
+
+        try:
+            prev_button = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.ID, "prevDate"))
+            )
+
+            for _ in range(days_back):
+                prev_button.click()
+                time_module.sleep(2)
+
+                if wait_for_ibex_delivery_date(driver, target_date, timeout=5):
+                    log(f"[INFO] IBEX delivery date moved back to today: {target_txt}.")
+                    return True
+
+                prev_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.ID, "prevDate"))
+                )
+
+        except Exception as e:
+            log(f"[WARNING] IBEX previous-date button failed: {e}")
+
+    elif current_date < target_date:
+        days_forward = min((target_date - current_date).days, 31)
+
+        try:
+            next_button = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.ID, "nextDate"))
+            )
+
+            for _ in range(days_forward):
+                next_button.click()
+                time_module.sleep(2)
+
+                if wait_for_ibex_delivery_date(driver, target_date, timeout=5):
+                    log(f"[INFO] IBEX delivery date moved forward to today: {target_txt}.")
+                    return True
+
+                next_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.ID, "nextDate"))
+                )
+
+        except Exception as e:
+            log(f"[WARNING] IBEX next-date button failed: {e}")
+
+    if set_ibex_delivery_date_direct(driver, target_date):
+        return True
+
+    log("[ERROR] Could not switch IBEX to today's delivery date.", tag="red")
+    return False
+
+
+def table_matches_delivery_date(table, target_date):
+    table_text = table.get_text(" ", strip=True)
+    target_values = {
+        target_date.strftime("%d/%m/%Y"),
+        target_date.strftime("%d.%m.%Y"),
+        target_date.strftime("%Y-%m-%d"),
+        format_ibex_bulgarian_date(target_date),
+    }
+
+    return any(value in table_text for value in target_values)
+
+
+def row_matches_market_period(row_text, current_periods):
+    normalized = re.sub(r"\s+", " ", row_text)
+
+    for period in current_periods:
+        pattern = rf"(?<!\d){re.escape(period)}(?!\d)"
+        if re.search(pattern, normalized):
+            return True
+
+    return False
+
+
+def choose_price_column(columns):
+    preferred = [
+        "price_eur",
+        "eur/mwh",
+        "euro/mwh",
+        "eur",
+        "евро/mwh",
+        "евро",
+        "price",
+        "цена",
+        "bgn/mwh",
+    ]
+
+    lowered = {str(col).strip().lower(): col for col in columns}
+
+    for token in preferred:
+        for lowered_col, original_col in lowered.items():
+            if token in lowered_col:
+                return original_col
+
+    return None
 
 
 def wait_for_ibex_table(driver, timeout=30):
@@ -339,12 +646,27 @@ def extract_current_price_from_ibex(driver):
         log("[ERROR] No tables found on IBEX page.", tag="red")
         return None
 
-    current_q, market_now_txt, bg_now_txt = get_current_15min_market_time()
+    target_date = get_target_delivery_date()
+    current_periods, market_now_txt, bg_now_txt = get_current_market_periods()
 
-    log(f"[INFO] IBEX market time now: {market_now_txt}")
-    log(f"[INFO] Looking for current 15-min period: {current_q}")
+    log(f"[INFO] IBEX CET/CEST delivery time now: {market_now_txt}")
+    log(f"[INFO] Looking for delivery date: {target_date.strftime('%d/%m/%Y')}")
+    log(f"[INFO] Looking for current market periods: {', '.join(current_periods[:4])}")
 
     found_prices = []
+    target_tables = []
+
+    if get_ibex_date_picker_date(driver) == target_date:
+        log("[INFO] IBEX page date picker confirms today's delivery date.")
+    else:
+        for table in html_tables:
+            if table_matches_delivery_date(table, target_date):
+                target_tables.append(table)
+
+        if target_tables:
+            html_tables = target_tables
+        else:
+            log("[WARNING] Could not identify an IBEX table dated today. Will inspect all rendered tables.")
 
     for table in html_tables:
         try:
@@ -355,32 +677,27 @@ def extract_current_price_from_ibex(driver):
         for df in dfs:
             df.columns = [str(c).strip() for c in df.columns]
 
-            price_columns = [
-                col for col in df.columns
-                if (
-                    "price" in col.lower()
-                    or "цена" in col.lower()
-                    or "bgn/mwh" in col.lower()
-                    or "eur/mwh" in col.lower()
-                )
-            ]
+            price_col = choose_price_column(df.columns)
 
-            if not price_columns:
+            if not price_col:
                 continue
 
-            price_col = price_columns[0]
+            date_columns = [col for col in df.columns if "date" in col.lower()]
 
             for _, row in df.iterrows():
                 row_text = " ".join([str(x).strip() for x in row.tolist()])
 
-                if current_q in row_text:
+                if not row_matches_delivery_date(row, date_columns, target_date):
+                    continue
+
+                if row_matches_market_period(row_text, current_periods):
                     price = normalize_price(row[price_col])
 
                     if price is not None:
                         found_prices.append(price)
 
     if not found_prices:
-        log(f"[ERROR] Could not find PRICE value for {current_q}.", tag="red")
+        log("[ERROR] Could not find PRICE value for the current period and delivery date.", tag="red")
         return None
 
     current_price = found_prices[0]
@@ -397,6 +714,70 @@ def extract_current_price_from_ibex(driver):
 isOn = "First Run"
 
 
+def login_to_huawei(driver):
+    if not safe_get(driver, HUAWEI_URL, retries=5, wait_time=10, ready_timeout=45):
+        return False
+
+    if not safe_send_keys(driver, By.ID, "username", credentials["username"], retries=12, wait_time=15):
+        log("[ERROR] Could not enter Huawei username.", tag="red")
+        return False
+
+    time_module.sleep(1)
+
+    if not safe_send_keys(driver, By.ID, "value", credentials["password"], retries=12, wait_time=15):
+        log("[ERROR] Could not enter Huawei password.", tag="red")
+        return False
+
+    time_module.sleep(1)
+
+    if not safe_click(driver, By.CLASS_NAME, "loginBtn", retries=12, wait_time=15):
+        log("[ERROR] Could not click Huawei login button.", tag="red")
+        return False
+
+    time_module.sleep(10)
+    return True
+
+
+def adjust_huawei_device(driver, device_url, target_kw, building_name):
+    if not safe_get(driver, device_url, retries=5, wait_time=10, ready_timeout=45):
+        return False
+
+    dismiss_huawei_update_popup(driver)
+    time_module.sleep(5)
+
+    if not safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button", retries=12, wait_time=15):
+        log(f"[ERROR] Could not open Active Power Adjustment for {building_name}.", tag="red")
+        return False
+
+    time_module.sleep(5)
+
+    if not safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", target_kw, retries=12, wait_time=15):
+        log(f"[ERROR] Could not enter target kW for {building_name}.", tag="red")
+        return False
+
+    time_module.sleep(5)
+
+    if not safe_click(driver, By.XPATH, "//span[text()='Preset']/..", retries=12, wait_time=15):
+        log(f"[ERROR] Could not click Preset for {building_name}.", tag="red")
+        return False
+
+    time_module.sleep(5)
+
+    if not safe_click(driver, By.XPATH, "//span[text()='Execute']/..", retries=12, wait_time=15):
+        log(f"[ERROR] Could not click Execute for {building_name}.", tag="red")
+        return False
+
+    time_module.sleep(10)
+
+    if not safe_click(driver, By.XPATH, "//span[text()='OK']/..", retries=12, wait_time=15):
+        log(f"[ERROR] Could not confirm OK for {building_name}.", tag="red")
+        return False
+
+    time_module.sleep(3)
+    log(f"[INFO] {building_name} set to {target_kw}kW", tag="green")
+    return True
+
+
 def huaweiON(driver):
     global isOn
 
@@ -405,57 +786,27 @@ def huaweiON(driver):
             log("[INFO] Huawei already ON. Skipping...")
             return
 
-        if not safe_get(driver, HUAWEI_URL):
+        if not login_to_huawei(driver):
             return
-        
 
-        safe_send_keys(driver, By.ID, "username", credentials["username"])
-        time_module.sleep(1)
-
-        safe_send_keys(driver, By.ID, "value", credentials["password"])
-        time_module.sleep(1)
-
-        safe_click(driver, By.CLASS_NAME, "loginBtn")
-        time_module.sleep(8)
-
-        if safe_get(
+        building_1_ok = adjust_huawei_device(
             driver,
             "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details",
-        ):
-            dismiss_huawei_update_popup(driver)
-            time_module.sleep(3)
-            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-            time_module.sleep(5)
-            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", credentials["1"])
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-            time_module.sleep(10)
-            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-            time_module.sleep(3)
-            log(f"[INFO] {BUILDING_1_NAME} set to {credentials['1']}kW", tag="green")
-
-        if safe_get(
+            credentials["1"],
+            BUILDING_1_NAME,
+        )
+        building_2_ok = adjust_huawei_device(
             driver,
             "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details",
-        ):
-            dismiss_huawei_update_popup(driver)
-            time_module.sleep(3)
-            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-            time_module.sleep(5)
-            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", credentials["2"])
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-            time_module.sleep(10)
-            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-            time_module.sleep(3)
-            log(f"[INFO] {BUILDING_2_NAME} set to {credentials['2']}kW", tag="green")
-            log("[SUCCESS] Successful! System is ON", tag="green")
+            credentials["2"],
+            BUILDING_2_NAME,
+        )
 
-        isOn = "ON"
+        if building_1_ok and building_2_ok:
+            log("[SUCCESS] Successful! System is ON", tag="green")
+            isOn = "ON"
+        else:
+            log("[ERROR] Huawei ON action did not complete for all buildings.", tag="red")
 
     except Exception as e:
         log(f"[ERROR] huaweiON failed: {e}", tag="red")
@@ -469,56 +820,27 @@ def huaweiOFF(driver):
             log("[INFO] Huawei already OFF. Skipping...")
             return
 
-        if not safe_get(driver, HUAWEI_URL):
+        if not login_to_huawei(driver):
             return
 
-        safe_send_keys(driver, By.ID, "username", credentials["username"])
-        time_module.sleep(1)
-
-        safe_send_keys(driver, By.ID, "value", credentials["password"])
-        time_module.sleep(1)
-
-        safe_click(driver, By.CLASS_NAME, "loginBtn")
-        time_module.sleep(10)
-
-        if safe_get(
+        building_1_ok = adjust_huawei_device(
             driver,
             "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134714396/submatrix/details",
-        ):
-            dismiss_huawei_update_popup(driver)
-            time_module.sleep(3)
-            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-            time_module.sleep(5)
-            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", "0")
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-            time_module.sleep(10)
-            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-            time_module.sleep(3)
-            log(F"[INFO] {BUILDING_1_NAME} set to 0kW", tag="green")
-
-        if safe_get(
+            "0",
+            BUILDING_1_NAME,
+        )
+        building_2_ok = adjust_huawei_device(
             driver,
             "https://uni002eu5.fusionsolar.huawei.com/uniportal/pvmswebsite/assets/build/cloud.html?app-id=smartpvms&instance-id=smartpvms&zone-id=region-2-aaeafa18-4690-4f82-b58f-f69e775e788c#/view/device/NE=134601162/submatrix/details",
-        ):
-            dismiss_huawei_update_popup(driver)
-            time_module.sleep(3)
-            safe_click(driver, By.XPATH, "//span[@title='Active Power Adjustment']/button")
-            time_module.sleep(5)
-            safe_send_keys(driver, By.CLASS_NAME, "ant-input-number-input", "0")
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Preset']/..")
-            time_module.sleep(5)
-            safe_click(driver, By.XPATH, "//span[text()='Execute']/..")
-            time_module.sleep(10)
-            safe_click(driver, By.XPATH, "//span[text()='OK']/..")
-            time_module.sleep(3)
-            log(F"[INFO] {BUILDING_2_NAME} set to 0kW", tag="green")
-            log("[SUCCESS] Successful! System is OFF", tag="green")
+            "0",
+            BUILDING_2_NAME,
+        )
 
-        isOn = "OFF"
+        if building_1_ok and building_2_ok:
+            log("[SUCCESS] Successful! System is OFF", tag="green")
+            isOn = "OFF"
+        else:
+            log("[ERROR] Huawei OFF action did not complete for all buildings.", tag="red")
 
     except Exception as e:
         log(f"[ERROR] huaweiOFF failed: {e}", tag="red")
@@ -531,8 +853,10 @@ def huaweiOFF(driver):
 def main():
     global loop_counter, dump_index
 
-    current_hour = datetime.now(sofia_tz).hour
-    current_minute = datetime.now(sofia_tz).minute
+    now_bg = datetime.now(sofia_tz)
+    current_hour = now_bg.hour
+    current_minute = now_bg.minute
+    today = now_bg.weekday()
 
     loop_counter += 1
 
@@ -556,17 +880,52 @@ def main():
 
     log(f"[INFO] Current Bulgaria time: {current_hour:02d}:{current_minute:02d}")
 
-    driver = get_driver()
+    driver = None
 
     try:
-        log("" + "=" * 79 + "\n[INFO] Checking prices...")
-
-        if not safe_get(driver, URL):
-            log_price(None, context="LOAD-FAIL")
+        if today in (5, 6) and is_outside_solar_hours(now_bg):
+            sunrise, sunset = get_sun_window(now_bg.date())
+            log(
+                f"[INFO] Weekend outside solar hours. "
+                f"sunrise={sunrise.strftime('%H:%M')}, sunset={sunset.strftime('%H:%M')}. "
+                "Skipping IBEX and Huawei until sunrise."
+            )
             return
 
-        # Give dynamic page a little time after load
-        time_module.sleep(5)
+        if today not in (5, 6):
+            if is_monday_sunrise_start_window(now_bg):
+                log("[INFO] Monday after sunrise. Starting the systems for weekdays.")
+                driver = get_driver()
+                huaweiON(driver)
+            else:
+                log("[INFO] Today is a weekday. Skipping price-based IBEX/Huawei action.")
+            return
+
+        driver = get_driver()
+
+        log("" + "=" * 79 + "\n[INFO] Checking prices...")
+
+        ibex_ready = False
+
+        for attempt in range(1, 3):
+            if not safe_get(driver, URL, retries=3, wait_time=10, ready_timeout=45):
+                log_price(None, context="LOAD-FAIL")
+                return
+
+            # Give the dynamic IBEX widgets time to pass their JS gate and render tables.
+            time_module.sleep(8)
+            ensure_ibex_delivery_date(driver)
+
+            if wait_for_ibex_table(driver, 45):
+                ibex_ready = True
+                break
+
+            log(f"[WARNING] IBEX table did not render on attempt {attempt}/2. Reloading page...")
+
+        if not ibex_ready:
+            log("[ERROR] IBEX table did not render after reload.", tag="red")
+            log_price(None, context="TABLE-FAIL")
+            return
 
         current_price = extract_current_price_from_ibex(driver)
         log_price(current_price, context="IMMEDIATE")
@@ -575,41 +934,14 @@ def main():
             log("[WARNING] Current price unavailable. Skipping Huawei action.")
             return
 
-        today = datetime.now(sofia_tz).weekday()
+        threshold = float(credentials["userPrice"])
 
-        if today in (5, 6):  # Saturday/Sunday
-            after_sunset = (
-                current_hour > int(sunset_hour)
-                or (current_hour == int(sunset_hour) and current_minute >= int(sunset_minute))
-            )
-            before_sunrise = (
-                current_hour < int(sunrise_hour)
-                or (current_hour == int(sunrise_hour) and current_minute < int(sunrise_minute))
-            )
-
-            if after_sunset or before_sunrise:
-                log(
-                    f"[INFO] Current time is outside solar hours "
-                    f"sunrise={sunrise_hour}:{sunrise_minute}, sunset={sunset_hour}:{sunset_minute}."
-                )
-                return
-
-            threshold = float(credentials["userPrice"])
-
-            if current_price > threshold:
-                log(f"[ACTION] Price {current_price:.2f} > threshold {threshold:.2f}. Turning ON Huawei.", tag="green")
-                huaweiON(driver)
-            else:
-                log(f"[ACTION] Price {current_price:.2f} <= threshold {threshold:.2f}. Turning OFF Huawei.", tag="red")
-                huaweiOFF(driver)
-
+        if current_price > threshold:
+            log(f"[ACTION] Price {current_price:.2f} > threshold {threshold:.2f}. Turning ON Huawei.", tag="green")
+            huaweiON(driver)
         else:
-            # Weekday: Monday sunrise auto-start
-            if today == 0 and current_hour == (int(sunrise_hour) + 1):
-                log("[INFO] Monday after sunrise. Starting the systems for weekdays.")
-                huaweiON(driver)
-            else:
-                log("[INFO] Today is a weekday. Skipping price-based Huawei action.")
+            log(f"[ACTION] Price {current_price:.2f} <= threshold {threshold:.2f}. Turning OFF Huawei.", tag="red")
+            huaweiOFF(driver)
 
     except Exception as e:
         log(f"[ERROR] Unexpected error: {e}", tag="red")
@@ -622,17 +954,21 @@ def main():
                 pass
 
 
-def wait_until_next_30min():
+def wait_until_next_run():
     now = datetime.now(sofia_tz)
 
-    if now.minute < 30:
+    if is_weekend(now.date()) and is_outside_solar_hours(now):
+        next_run = get_next_sunrise(now)
+        log(f"[INFO] Waiting until next sunrise check: {next_run.strftime('%Y-%m-%d %H:%M')}")
+    elif now.minute < 30:
         next_run = now.replace(minute=30, second=0, microsecond=0)
+        log(f"[INFO] Waiting until next 30-min check: {next_run.strftime('%H:%M')}")
     else:
         next_run = (now + timedelta(hours=1)).replace(minute=0, second=0, microsecond=0)
+        log(f"[INFO] Waiting until next 30-min check: {next_run.strftime('%H:%M')}")
 
     sleep_seconds = (next_run - now).total_seconds()
 
-    log(f"[INFO] Waiting until next 30-min check: {next_run.strftime('%H:%M')}")
     time_module.sleep(sleep_seconds + 10)
 
 
@@ -643,7 +979,7 @@ def hourly_loop():
         except Exception as e:
             log(f"[ERROR] Main loop crash: {e}", tag="red")
 
-        wait_until_next_30min()
+        wait_until_next_run()
 
 
 # =========================
